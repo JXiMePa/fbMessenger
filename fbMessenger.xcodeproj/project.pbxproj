@@ -9,19 +9,25 @@
 /* Begin PBXBuildFile section */
 		6BEDC0C420A44DA000337A33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0C320A44DA000337A33 /* AppDelegate.swift */; };
 		6BEDC0C620A44DA000337A33 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0C520A44DA000337A33 /* FriendsController.swift */; };
-		6BEDC0CC20A44DA000337A33 /* fbMessenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0CA20A44DA000337A33 /* fbMessenger.xcdatamodeld */; };
 		6BEDC0CE20A44DA100337A33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BEDC0CD20A44DA100337A33 /* Assets.xcassets */; };
 		6BEDC0D120A44DA100337A33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BEDC0CF20A44DA100337A33 /* LaunchScreen.storyboard */; };
+		6BEDC0D920A4A7C500337A33 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0D820A4A7C500337A33 /* Friend.swift */; };
+		6BEDC0DB20A4B28000337A33 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0DA20A4B28000337A33 /* MessageCell.swift */; };
+		6BEDC0DD20A4B5FE00337A33 /* FriendsControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0DC20A4B5FE00337A33 /* FriendsControllerHelper.swift */; };
+		6BEDC0DF20A4BD6C00337A33 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0DE20A4BD6C00337A33 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6BEDC0C020A44DA000337A33 /* fbMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fbMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BEDC0C320A44DA000337A33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BEDC0C520A44DA000337A33 /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
-		6BEDC0CB20A44DA000337A33 /* fbMessenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = fbMessenger.xcdatamodel; sourceTree = "<group>"; };
 		6BEDC0CD20A44DA100337A33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BEDC0D020A44DA100337A33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6BEDC0D220A44DA100337A33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BEDC0D820A4A7C500337A33 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		6BEDC0DA20A4B28000337A33 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		6BEDC0DC20A4B5FE00337A33 /* FriendsControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsControllerHelper.swift; sourceTree = "<group>"; };
+		6BEDC0DE20A4BD6C00337A33 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +62,13 @@
 			children = (
 				6BEDC0C320A44DA000337A33 /* AppDelegate.swift */,
 				6BEDC0C520A44DA000337A33 /* FriendsController.swift */,
+				6BEDC0DC20A4B5FE00337A33 /* FriendsControllerHelper.swift */,
+				6BEDC0DA20A4B28000337A33 /* MessageCell.swift */,
+				6BEDC0D820A4A7C500337A33 /* Friend.swift */,
+				6BEDC0DE20A4BD6C00337A33 /* Message.swift */,
 				6BEDC0CD20A44DA100337A33 /* Assets.xcassets */,
 				6BEDC0CF20A44DA100337A33 /* LaunchScreen.storyboard */,
 				6BEDC0D220A44DA100337A33 /* Info.plist */,
-				6BEDC0CA20A44DA000337A33 /* fbMessenger.xcdatamodeld */,
 			);
 			path = fbMessenger;
 			sourceTree = "<group>";
@@ -135,8 +144,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BEDC0C620A44DA000337A33 /* FriendsController.swift in Sources */,
-				6BEDC0CC20A44DA000337A33 /* fbMessenger.xcdatamodeld in Sources */,
+				6BEDC0DB20A4B28000337A33 /* MessageCell.swift in Sources */,
 				6BEDC0C420A44DA000337A33 /* AppDelegate.swift in Sources */,
+				6BEDC0D920A4A7C500337A33 /* Friend.swift in Sources */,
+				6BEDC0DD20A4B5FE00337A33 /* FriendsControllerHelper.swift in Sources */,
+				6BEDC0DF20A4BD6C00337A33 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,19 +336,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		6BEDC0CA20A44DA000337A33 /* fbMessenger.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				6BEDC0CB20A44DA000337A33 /* fbMessenger.xcdatamodel */,
-			);
-			currentVersion = 6BEDC0CB20A44DA000337A33 /* fbMessenger.xcdatamodel */;
-			path = fbMessenger.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 6BEDC0B820A44D9F00337A33 /* Project object */;
 }
