@@ -25,7 +25,6 @@ class FriendsController: UICollectionViewController, UICollectionViewDelegateFlo
         //.alwaysBounceVertical - only vertycal scrolling
         
         collectionView?.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
-        
         setupData()
     }
     
