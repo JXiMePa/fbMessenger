@@ -21,9 +21,7 @@ class BaseCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
-        backgroundColor = #colorLiteral(red: 0.2709437468, green: 1, blue: 0.2488278626, alpha: 1)
-    }
+    func setupViews() { }
 }
 
 
@@ -41,7 +39,7 @@ class MessageCell: BaseCell {
             
             if let date = message?.date {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "HH:MM" //12h("h:mm a")
+                dateFormatter.dateFormat = "h:mm a" //24h"HH:MM" //12h("h:mm a")
                 
                 timeLabel.text = dateFormatter.string(from: date as Date)
             }
@@ -73,7 +71,7 @@ class MessageCell: BaseCell {
     
     let messageLabel: UILabel = {
         let label = UILabel()
-        label.text = "bla bla =) massage and something else..."
+        label.text = "bla bla =) "
         label.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14)
         return label
@@ -81,9 +79,9 @@ class MessageCell: BaseCell {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "12:05"
+        label.text = "00:05"
         label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 17)
         label.textAlignment = .right
         return label
     }()
@@ -111,18 +109,15 @@ class MessageCell: BaseCell {
         //Constraint conteinerView & subViews
         addSubview(conteinerView)
         addConstraintsWithVisualFormat(format: "H:|-90-[v0]|", views: conteinerView)
-        addConstraintsWithVisualFormat(format: "V:[v0(50)]", views: conteinerView)
+        addConstraintsWithVisualFormat(format: "V:[v0(70)]", views: conteinerView)
         addConstraint(NSLayoutConstraint(item: conteinerView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         
         //subViews
-        addConstraintsWithVisualFormat(format: "H:|[v0][v1(80)]-10-|", views: nameLabel, timeLabel)
+        addConstraintsWithVisualFormat(format: "H:|[v0][v1(80)]-15-|", views: nameLabel, timeLabel)
         addConstraintsWithVisualFormat(format: "V:|[v0][v1(24)]|", views: nameLabel, messageLabel)
-        
-        addConstraintsWithVisualFormat(format: "H:|[v0]-8-[v1(20)]-12-|",
+        addConstraintsWithVisualFormat(format: "H:|[v0]-8-[v1(20)]-15-|",
                                        views: messageLabel, hasReadImageView)
-        
-        addConstraintsWithVisualFormat(format: "V:|[v0(26)]|", views: timeLabel)
-        
+        addConstraintsWithVisualFormat(format: "V:|[v0(25)]", views: timeLabel)
         addConstraintsWithVisualFormat(format: "V:[v0(20)]|", views: hasReadImageView)
     }
     
