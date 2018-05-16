@@ -9,10 +9,10 @@
 import UIKit
 import Foundation
 
-//create Cell
+//MARK: create Abstract class Cell
 class BaseCell: UICollectionViewCell {
     
-    //MARK: init Cell
+    // init Cell
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -20,12 +20,21 @@ class BaseCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+ 
     func setupViews() { }
 }
 
-
+//MARK: create class Cell
 class MessageCell: BaseCell {
+    
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ?  #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            nameLabel.textColor = isHighlighted ?  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            timeLabel.textColor = isHighlighted ?  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            messageLabel.textColor = isHighlighted ?  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }
+    }
     
     var message: Message? {
         didSet {
@@ -40,14 +49,19 @@ class MessageCell: BaseCell {
             if let date = message?.date {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "h:mm a" //24h"HH:MM" //12h("h:mm a")
-                
-                timeLabel.text = dateFormatter.string(from: date as Date)
+                let elapsedTimeInSeconds = Date().timeIntervalSince(date)
+                let secondsInDey:Double = 60 * 60 * 24
+                if elapsedTimeInSeconds > secondsInDey * Double(7) {
+                    dateFormatter.dateFormat = "MM/dd/yy"
+                } else if elapsedTimeInSeconds > secondsInDey {
+                    dateFormatter.dateFormat = "EEE"
+                }
+                timeLabel.text = dateFormatter.string(from: date)
             }
-            
-            
         }
     }
-    //MARK: Cell Items
+    
+    //MARK: --- Cell Items
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -64,14 +78,14 @@ class MessageCell: BaseCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Mark Zuckerberg"
+        label.text = "Xxxxx Xxxxxx"
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
     
     let messageLabel: UILabel = {
         let label = UILabel()
-        label.text = "bla bla =) "
+        label.text = ".... ...... (Oo) "
         label.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14)
         return label
@@ -79,7 +93,7 @@ class MessageCell: BaseCell {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:05"
+        label.text = "00:00"
         label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 17)
         label.textAlignment = .right
@@ -91,7 +105,7 @@ class MessageCell: BaseCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        //layer.masksToBounds - подрезаны ли подслои к границам слоя
+        //layer.masksToBounds - подрезаны -> cornerRadius
         return imageView
     }()
     
@@ -106,7 +120,7 @@ class MessageCell: BaseCell {
         conteinerView.addSubview(timeLabel)
         conteinerView.addSubview(hasReadImageView)
         
-        //Constraint conteinerView & subViews
+        //MARK: Constraint conteinerView & subViews
         addSubview(conteinerView)
         addConstraintsWithVisualFormat(format: "H:|-90-[v0]|", views: conteinerView)
         addConstraintsWithVisualFormat(format: "V:[v0(70)]", views: conteinerView)
@@ -121,7 +135,7 @@ class MessageCell: BaseCell {
         addConstraintsWithVisualFormat(format: "V:[v0(20)]|", views: hasReadImageView)
     }
     
-    //MARK: setupViews()
+    //MARK: override setupViews() in Abstract class
     override func setupViews() {
         
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -131,8 +145,6 @@ class MessageCell: BaseCell {
         
         setupCntainerView()
         
-        profileImageView.image = UIImage(named: "zuckprofile")
-        hasReadImageView.image = profileImageView.image
         
         //profileImageView
         addConstraintsWithVisualFormat(format: "H:|-12-[v0(68)]", views: profileImageView)

@@ -26,9 +26,7 @@ extension FriendsController {
                         context.delete(i)
                     }
                 }
-                
                 try context.save() //save
-                
             } catch let err { print(err) }
         }
     }
@@ -43,30 +41,34 @@ extension FriendsController {
         if let context = delegate?.persistentContainer.viewContext {
             
             let mark = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            //let mark = Friend()
             mark.name = "Mark Zuckerberg"
             mark.profileImageName = "zuckprofile"
-            //let message = Message()
-            let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
-            message.friend = mark
-            message.text = "Hello my Name is Mark nise to meet you.."
-            message.date = Date()
+            
+            createMessage(text: "Hello my Name is Mark nice to meet you..", friend: mark, minutesAgo: 0, context: context)
             //-----
             
             let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             steve.name = "Steve Jobs"
             steve.profileImageName = "steveprofile"
             
-            createMessage(text: "Hello", friend: steve, minutesAgo: 6.0, context: context)
-            createMessage(text: "My name Steve", friend: steve, minutesAgo: 2.0, context: context)
-            createMessage(text: "Apple Nado?", friend: steve, minutesAgo: 1, context: context)
+            createMessage(text: "Hello, My name Steve.", friend: steve, minutesAgo: 6.0, context: context)
+            createMessage(text: "If you haven't found it yet, keep looking. \n\nStay hungry, stay foolish.", friend: steve, minutesAgo: 2.0, context: context)
+            createMessage(text: "You can’t connect the dots looking forward; you can connect them looking backwards. So you have to trust that the dots will somehow connect in your future. You have to trust in something – your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life!", friend: steve, minutesAgo: 1, context: context)
             
             let donald = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             donald.name = "Donald Trump"
             donald.profileImageName = "donaldprofile"
             createMessage(text: "Make America Great Again", friend: donald, minutesAgo: 5.0, context: context)
             
+            let gandhi = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
+            gandhi.name = "Mahatma Gandhi"
+            gandhi.profileImageName = "gandhiprofile"
+            createMessage(text: "Love, Peace and Joy", friend: gandhi, minutesAgo: 60 * 24, context: context)
             
+            let hillary = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
+            hillary.name = "Hillary Clinton"
+            hillary.profileImageName = "hillaryprofile"
+            createMessage(text: "Plese vote for me, you did for Billy!", friend: hillary, minutesAgo: 8 * 60 * 24, context: context)
             
             //MARK: SAVE DATA!
             do {
@@ -99,7 +101,7 @@ extension FriendsController {
                 messages = [Message]()
                 
                 for friend in friends {
-                    print(friend.name!)
+                    
                     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
                     
                     //sort ----
@@ -116,7 +118,7 @@ extension FriendsController {
                         print(err)
                     }
                 }
-                messages = messages?.sorted(by: ) {$0.date! < $1.date!}
+                messages = messages?.sorted(by: ) {$0.date! > $1.date!}
             }
         }
     }

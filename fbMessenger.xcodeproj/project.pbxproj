@@ -15,6 +15,7 @@
 		6BEDC0D120A44DA100337A33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BEDC0CF20A44DA100337A33 /* LaunchScreen.storyboard */; };
 		6BEDC0DB20A4B28000337A33 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0DA20A4B28000337A33 /* MessageCell.swift */; };
 		6BEDC0DD20A4B5FE00337A33 /* FriendsControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEDC0DC20A4B5FE00337A33 /* FriendsControllerHelper.swift */; };
+		6BFC3BCC20AAE19C00DEC027 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFC3BCB20AAE19C00DEC027 /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		6BEDC0D220A44DA100337A33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BEDC0DA20A4B28000337A33 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		6BEDC0DC20A4B5FE00337A33 /* FriendsControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsControllerHelper.swift; sourceTree = "<group>"; };
+		6BFC3BCB20AAE19C00DEC027 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +64,10 @@
 			children = (
 				6BEDC0C320A44DA000337A33 /* AppDelegate.swift */,
 				6BEDC0C520A44DA000337A33 /* FriendsController.swift */,
-				6BEDC0DA20A4B28000337A33 /* MessageCell.swift */,
 				6BEDC0DC20A4B5FE00337A33 /* FriendsControllerHelper.swift */,
+				6BEDC0DA20A4B28000337A33 /* MessageCell.swift */,
 				6B31C2A320AA24E700F41E0B /* ChatLogController.swift */,
+				6BFC3BCB20AAE19C00DEC027 /* CustomTabBarController.swift */,
 				6B121CAD20A86C2200285CB6 /* fbMessenger.xcdatamodeld */,
 				6BEDC0CD20A44DA100337A33 /* Assets.xcassets */,
 				6BEDC0CF20A44DA100337A33 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B31C2A420AA24E700F41E0B /* ChatLogController.swift in Sources */,
+				6BFC3BCC20AAE19C00DEC027 /* CustomTabBarController.swift in Sources */,
 				6B121CAF20A86C2200285CB6 /* fbMessenger.xcdatamodeld in Sources */,
 				6BEDC0C620A44DA000337A33 /* FriendsController.swift in Sources */,
 				6BEDC0DB20A4B28000337A33 /* MessageCell.swift in Sources */,

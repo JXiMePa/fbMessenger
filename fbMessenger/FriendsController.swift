@@ -13,9 +13,8 @@ class FriendsController: UICollectionViewController, UICollectionViewDelegateFlo
     private let cellId = "cellId"
     
     var messages: [Message]?
-    
 
-    //MARK: ViewDidLoad-------------
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,12 +22,12 @@ class FriendsController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         collectionView?.alwaysBounceVertical = true
         //.alwaysBounceVertical - only vertycal scrolling
-        
         collectionView?.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
+        
         setupData()
     }
     
-    //MARK:CollectionViewDelegat
+    //MARK: MessagesCollectionView Implement
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = messages?.count {
             return count
@@ -40,28 +39,27 @@ class FriendsController: UICollectionViewController, UICollectionViewDelegateFlo
         if let message = messages?[indexPath.item] {
             cell.message = message
         }
-        
         return cell
     }
     
+    //UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: view.frame.width, height: CGFloat(100))
     }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let layout = UICollectionViewFlowLayout()
         
+        let layout = UICollectionViewFlowLayout()
         let controller = ChatLogController(collectionViewLayout: layout)
         controller.friend = messages?[indexPath.item].friend
+        
         navigationController?.pushViewController(controller, animated: true)
     }
-    
 }
 
-
+//MARK: constraintsWithVisualFormat
 extension UIView {
     
-    //MARK: constraintsWithVisualFormat
     func addConstraintsWithVisualFormat(format: String, views: UIView...) {
         
         var viewsDictionary = [String: UIView]()
@@ -72,9 +70,10 @@ extension UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
-        
+    }
+}
 //------------   ConstraintWithVisualFormat   -----------
-        
+
 //        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-82-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : dividerLineView]))
 //
 /// "H:|-10-[v0(25)]-10-|"
@@ -84,7 +83,5 @@ extension UIView {
 //"v0" - view in superViews
 //"(25)" - size
 //-----------------------------------------------------
-    }
-}
 
 
