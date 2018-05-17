@@ -13,11 +13,15 @@ class FriendsController: UICollectionViewController, UICollectionViewDelegateFlo
     private let cellId = "cellId"
     
     var messages: [Message]?
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.title = "Recent"
         collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         collectionView?.alwaysBounceVertical = true
@@ -33,7 +37,7 @@ class FriendsController: UICollectionViewController, UICollectionViewDelegateFlo
             return count
         }
         return 0 }
-        
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
         if let message = messages?[indexPath.item] {

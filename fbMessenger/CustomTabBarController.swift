@@ -12,14 +12,14 @@ class CustomTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setut custom viewControllers
+        //setup custom viewControllers
         
         //MARK: Controllers
         let layout = UICollectionViewFlowLayout()
         let friendsController = FriendsController(collectionViewLayout: layout)
         let viewController = UIViewController() // empty for now...
         
-        //MARK: TabBarControllers create
+        //MARK: Items TabBarController
         let recentMessageNavVC = createNavControllerWithTitle(title: "Recent", imageName: "recent", viewController: friendsController)
         
         let callsController = createNavControllerWithTitle(title: "Calls", imageName: "calls", viewController: viewController)
@@ -40,12 +40,4 @@ class CustomTabBarController: UITabBarController {
         return navController
     }
 }
-
-
-
-
-
-
-
-
 
