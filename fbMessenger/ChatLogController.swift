@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -15,16 +16,16 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var friend: Friend? {
         didSet {
             navigationItem.title = friend?.name
-            if friend?.message?.allObjects != nil {
-                if let messagesObjects = friend?.message?.allObjects as? [Message] {
-                    messages = messagesObjects
-                    messages = messages.sorted(by: ) {$0.date! < $1.date!}
-                }
-            }
+//            if friend?.message?.allObjects != nil {
+//                if let messagesObjects = friend?.message?.allObjects as? [Message] {
+//                    messages = messagesObjects
+//                    messages = messages.sorted(by: ) {$0.date! < $1.date!}
+//                }
+//            }
         }
     }
     
-    var messages = [Message]()
+   // var messages = [Message]()
     
     //MARK: Page Items.
     let messageInputContainerView: UIView = {
@@ -50,31 +51,84 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     @objc private func senderButtonPush(_ sender: UIButton) {
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
+        
         if let context = delegate?.persistentContainer.viewContext {
-            let newMessageSend = FriendsController.createMessage(text: inputTextField.text!, friend: friend!, minutesAgo: 0, context: context, isSender: true)
+            
+            _ = FriendsController.createMessage(text: inputTextField.text!, friend: friend!, minutesAgo: 0, context: context, isSender: true)
             
             do {
                 try context.save()
-                messages.append(newMessageSend)
-                let item = messages.count - 1
-                let insertionIndexPath = NSIndexPath(item: item, section: 0) as IndexPath
+//                messages.append(newMessageSend)
+//                let item = messages.count - 1
+//                let insertionIndexPath = NSIndexPath(item: item, section: 0) as IndexPath
+//
+//                collectionView?.insertItems(at: [insertionIndexPath])
+//                collectionView?.scrollToItem(at: insertionIndexPath, at: .top, animated: true)
                 
-                collectionView?.insertItems(at: [insertionIndexPath])
-                collectionView?.scrollToItem(at: insertionIndexPath, at: .bottom, animated: true)
                 inputTextField.text?.removeAll()
+                
             } catch let err {
                 print(err)
             }
-            //
         }
     }
     
-    var bottomMessageInputContainerViewCounstreint: NSLayoutConstraint?
+    @objc private func simulate() {
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        
+        if let context = delegate?.persistentContainer.viewContext {
+            
+            _ = FriendsController.createMessage(text: "message send 5 minutes ago ...", friend: friend!, minutesAgo: 1, context: context, isSender: false)
+            
+            do {
+                try context.save()
+                
+//                messages.append(newMessageSend)
+//                messages = messages.sorted(by: ) {$0.date! < $1.date!}
+//
+//                if let item = messages.index(of: newMessageSend) {
+//                let receivingIndexPath = NSIndexPath(item: item, section: 0) as IndexPath
+//                collectionView?.insertItems(at: [receivingIndexPath])
+//                }
+                
+            } catch let err {
+                print(err)
+            }
+        }
+    }
+
+    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+        // Sort fetchRequest
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        //ascending - a->z (Восходящий)
+        fetchRequest.predicate = NSPredicate(format: "friend.name = %@", self.friend!.name!)
+        //.predicate - вибор нужного обекта
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let context = delegate.persistentContainer.viewContext
+        
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        //sectionNameKeyPath - Request objects Name
+        return frc
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        do {
+            try fetchedResultsController.performFetch()
+            
+            //print(fetchedResultsController.sections?[0].numberOfObjects)
+            
+        } catch let err {
+            print(err)
+        }
+        
+        
         tabBarController?.tabBar.isHidden = true
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Simulate", style: .plain, target: self, action: #selector(simulate))
         
         collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         collectionView?.register(ChatLogMassageCell.self, forCellWithReuseIdentifier: cellId)
@@ -94,6 +148,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillHide, object: nil)
     }
     
+    var bottomMessageInputContainerViewCounstreint: NSLayoutConstraint?
+    
     @objc private func handleKeyboardNotification(notification: NSNotification) {
         
         let isKeyboardShow = notification.name == .UIKeyboardWillShow
@@ -101,16 +157,18 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         // get frame keyBoard
         if let userInfo = notification.userInfo {
             let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
-            bottomMessageInputContainerViewCounstreint?.constant =
-                isKeyboardShow ? -keyboardFrame!.height : 0
-            
+            if isKeyboardShow {
+            bottomMessageInputContainerViewCounstreint?.constant = -keyboardFrame!.height
+            } else {
+            bottomMessageInputContainerViewCounstreint?.constant = 0
+                
+            }
             UIView.animate(withDuration: 0, animations: {
                 self.view.layoutIfNeeded()
             }) { _ in
-                
                 if isKeyboardShow {
-                let indexPatch  = NSIndexPath(item: self.messages.count - 1, section: 0) as IndexPath
-                self.collectionView?.scrollToItem(at: indexPatch, at: .bottom, animated: true)
+//                let indexPatch  = NSIndexPath(item: self.messages.count - 1, section: 0) as IndexPath
+//                self.collectionView?.scrollToItem(at: indexPatch, at: .top, animated: true)
                 }
             }
         }
@@ -134,7 +192,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     //MARK: ChatLogCell Implement
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count 
+        if let count = fetchedResultsController.sections?[0].numberOfObjects {
+            return count
+        //return messages.count
+        }
+        return 0
     }
     
     //dismiss keyboard
@@ -144,9 +206,13 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatLogMassageCell
-               cell.messaageLabel.text = messages[indexPath.item].text
         
-        let message = messages[indexPath.item]
+        let message = fetchedResultsController.object(at: indexPath) as! Message
+        
+               cell.messaageLabel.text = message.text
+        
+        
+        //let message = messages[indexPath.item]
         if let messageText = message.text, let profileImageName = message.friend?.profileImageName {
             
                 cell.chatLogProfileImageView.image = UIImage(named: profileImageName)
@@ -187,7 +253,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if let messageText = messages[indexPath.item].text {
+        let message = fetchedResultsController.object(at: indexPath) as! Message
+        
+        if let messageText = message.text {
             return CGSize(width: view.frame.width, height: textFrame(text: messageText).height + 20)
         }
         return CGSize(width: view.frame.width, height: 100)

@@ -68,11 +68,11 @@ extension FriendsController {
             
             //steve
             _ = FriendsController.createMessage(text: "Hello, My name Steve.", friend: steve, minutesAgo: 6.0, context: context)
-            _ = FriendsController.createMessage(text: "If you haven't found it yet, keep looking. \n\nStay hungry, stay foolish.", friend: steve, minutesAgo: 2.0, context: context)
+            _ = FriendsController.createMessage(text: "If you haven't found it yet, keep looking. \n\nStay hungry, stay foolish.", friend: steve, minutesAgo: 5.0, context: context)
             _ = FriendsController.createMessage(text: "You can’t connect the dots looking forward; you can connect them looking backwards. So you have to trust that the dots will somehow connect in your future. You have to trust in something – your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life!", friend: steve, minutesAgo: 1, context: context)
-            _ = FriendsController.createMessage(text: "I looking for new macBook Pro 2018. \nCan you give me it for free? \n😋😉😀", friend: steve, minutesAgo: 0, context: context, isSender: true)
-            _ = FriendsController.createMessage(text: "😀", friend: steve, minutesAgo: 0, context: context, isSender: false)
-            _ = FriendsController.createMessage(text: "😋...............", friend: steve, minutesAgo: 0, context: context, isSender: true)
+            _ = FriendsController.createMessage(text: "I looking for new macBook Pro 2018. \nCan you give me it for free? \n😋😉😀", friend: steve, minutesAgo: 3, context: context, isSender: true)
+            _ = FriendsController.createMessage(text: "😀", friend: steve, minutesAgo: 3, context: context, isSender: false)
+            _ = FriendsController.createMessage(text: "😋...............", friend: steve, minutesAgo: 2, context: context, isSender: true)
             //donald
             _ = FriendsController.createMessage(text: "Make America Great Again", friend: donald, minutesAgo: 5.0, context: context)
             //gandhi
